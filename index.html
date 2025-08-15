@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Yusuf Ayman — Designer Portfolio</title>
+  <meta name="description" content="Dark portfolio — blue accents, advanced animations, Skills, Projects with Show More, responsive and accessible." />
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Poppins:wght@600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+
+  </style>
+</head>
+<body>
+  <div class="bg-blobs" aria-hidden="true">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+  </div>
+  <header class="site-header" role="banner">
+    <div class="container nav" role="navigation" aria-label="Main">
+      <div class="brand" aria-hidden="false">
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span class="name" style="font-size:20px;font-weight:800;letter-spacing:0.5px;">Yusuf Ayman</span>
+      </div>
+
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="#about" tabindex="0">About</a></li>
+          <li><a href="#projects" tabindex="0">Projects</a></li>
+          <li><a href="#services" tabindex="0">Services</a></li>
+          <li><a href="#skills" tabindex="0">Skills</a></li>
+          <li><a href="#contact" tabindex="0">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="actions" role="region" aria-label="Actions">
+        <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">🌙</button>
+        <button id="hireBtn" class="btn btn-primary">Hire Me</button>
+        <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" title="Menu">
+          <span class="hamburger-lines" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <!-- mobile nav (hidden) -->
+    <div id="mobileNav" class="mobile-nav" aria-hidden="true">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="container" id="top" role="main">
+    <!-- HERO -->
+    <section class="hero" aria-label="Hero">
+      <div class="orb-wrap" aria-hidden="true"><div class="orb one"></div><div class="orb two"></div></div>
+
+      <div class="hero-grid">
+        <div class="reveal" data-reveal>
+          <div class="eyebrow">Lead Graphic Designer</div>
+          <h1 class="hero-title">Design that <span style="color:var(--accent-2)">resonates</span> <span id="typed" class="typed" aria-hidden="true"></span></h1>
+          <p class="hero-sub">I craft brand systems, social visuals and motion assets that connect and convert — clean, bold and considered.</p>
+          <div class="hero-cta">
+            <a href="#projects" class="btn btn-primary">See Works</a>
+            <a href="#contact" class="btn">Contact</a>
+          </div>
+        </div>
+
+        <div class="reveal" data-reveal>
+          <div class="hero-shot" role="img" aria-label="Workspace mockup">
+            <img src="https://images.unsplash.com/photo-1524253482453-3fed8d2fe12b?q=80&w=1400&auto=format&fit=crop" alt="Workspace mockup">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="about" aria-label="About">
+      <div class="about-grid">
+        <div class="about-card reveal" aria-labelledby="aboutTitle" data-reveal>
+          <h3 id="aboutTitle" class="about-title">About Me</h3>
+          <p class="about-text">I’m a multidisciplinary graphic designer focused on brand identity, visual systems and social-first content. I partner with founders and teams to craft memorable brands and consistent visual languages across platforms. I work with startups, agencies and direct clients to build high-impact, conversion-driven visuals.</p>
+
+          <div style="margin-top:12px" aria-hidden="false">
+            <span class="skill-pill">🎨 Branding</span>
+            <span class="skill-pill">✒️ Logo Design</span>
+            <span class="skill-pill">📱 Social Visuals</span>
+            <span class="skill-pill">🎞️ Motion</span>
+          </div>
+
+          <div class="stats" style="margin-top:18px;display:flex;gap:18px;flex-wrap:wrap">
+            <div class="stat"><div class="num" style="font-weight:800;font-size:18px">2+</div><div class="label muted">Years Experience</div></div>
+            <div class="stat"><div class="num" style="font-weight:800;font-size:18px">150+</div><div class="label muted">Projects</div></div>
+            <div class="stat"><div class="num" style="font-weight:800;font-size:18px">60</div><div class="label muted">Clients</div></div>
+          </div>
+        </div>
+
+        <div class="portrait-wrap reveal" data-reveal>
+          <div class="portrait" role="img" aria-label="Portrait">
+            <div class="ring" aria-hidden="true"></div>
+            <img id="portraitImg" src="images/myimage.jpg" alt="Portrait">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="projects-section" aria-label="Projects">
+      <h3 class="reveal" data-reveal>Selected Projects</h3>
+      <p class="muted reveal" data-reveal>A curated selection of brand and visual design work. Click any project to view details (replace with real links or modals).</p>
+
+      <div class="projects-grid" id="projectsGrid" aria-live="polite">
+        <article class="project-card reveal" data-index="1" data-reveal tabindex="0">
+          <span class="badge">Poster</span>
+          <div class="project-thumb">
+            <img class="img-fit" src="images/Untitled-2-Recovered.jpg" alt="Project 1">
+          </div>
+          <div class="project-meta"><h4>Poster</h4><p class="muted">Poster • Talabat • Design</p></div>
+        </article>
+
+        <article class="project-card reveal" data-index="2" data-reveal tabindex="0">
+          <span class="badge">Social</span>
+          <div class="project-thumb"><img class="img-fit" src="images/design mix choco.jpg" alt="Project 2"></div>
+          <div class="project-meta"><h4>Social Visual </h4><p class="muted">Design • Poster</p></div>
+        </article>
+
+        <article class="project-card reveal" data-index="3" data-reveal tabindex="0">
+          <span class="badge">Poster</span>
+          <div class="project-thumb"><img class="img-fit" src="images/donut.jpg" alt="Project 3"></div>
+          <div class="project-meta"><h4>Poster</h4><p class="muted">Donut</p></div>
+        </article>
+
+        <article class="project-card reveal hidden" data-index="4" aria-hidden="true" tabindex="-1">
+          <span class="badge">Packaging</span>
+          <div class="project-thumb"><img class="img-fit" src="images/cr7.jpg" alt="Project 4"></div>
+          <div class="project-meta"><h4>Test Poster</h4><p class="muted">Print • Mockups</p></div>
+        </article>
+
+        <article class="project-card reveal hidden" data-index="5" aria-hidden="true" tabindex="-1">
+          <span class="badge">Poster</span>
+          <div class="project-thumb"><img class="img-fit" src="images/Untitled-3.jpg" alt="Project 5"></div>
+          <div class="project-meta"><h4>Poster Series</h4><p class="muted">Typo • Color • Layout</p></div>
+        </article>
+
+        <article class="project-card reveal hidden" data-index="6" aria-hidden="true" tabindex="-1">
+          <span class="badge">Exp</span>
+          <div class="project-thumb"><img class="img-fit" src="images/Untitled-1.jpg" alt="Project 6"></div>
+          <div class="project-meta"><h4>Design</h4><p class="muted">Poster • Ad</p></div>
+        </article>
+          <article class="project-card reveal hidden" data-index="7" aria-hidden="true" tabindex="-1">
+          <span class="badge">Exp</span>
+          <div class="project-thumb"><img class="img-fit" src="images/Poster.jpg" alt="Project 7"></div>
+          <div class="project-meta"><h4>Design</h4><p class="muted">Poster • Ad</p></div>
+        </article>
+      </div>
+       
+      </div>
+
+
+      <div class="show-more-wrap reveal" data-reveal>
+        <button id="showMore" class="show-more-btn" aria-expanded="false" aria-controls="projectsGrid">Show More</button>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" aria-label="Services" style="padding-top:36px">
+      <h3 class="reveal" data-reveal>Services</h3>
+      <div class="services-grid reveal" data-reveal style="margin-top:18px">
+        <div class="service-card"><div class="service-ico">🎯</div><h4>Brand Identity</h4><p class="muted">Naming • Strategy • Visual Systems</p></div>
+        <div class="service-card"><div class="service-ico">✒️</div><h4>Logo & Marks</h4><p class="muted">Wordmarks • Symbol systems</p></div>
+        <div class="service-card"><div class="service-ico">📱</div><h4>Social & Motion</h4><p class="muted">Templates • Short loops</p></div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="skills-section" aria-label="Skills">
+      <h3 class="section-title reveal" data-reveal>Skills</h3>
+      <div class="skills-filter reveal" data-reveal style="margin-top:8px">
+        <button class="filter-btn active" data-filter="all" aria-pressed="true">All</button>
+        <button class="filter-btn" data-filter="design">Design</button>
+        <button class="filter-btn" data-filter="dev">Dev</button>
+        <button class="filter-btn" data-filter="tools">Tools</button>
+      </div>
+
+      <div class="skills-cards reveal" id="skillsCards" data-reveal aria-live="polite">
+        <div class="skill-card" data-category="design" data-percent="80">
+          <div class="ring-wrap">
+            <svg class="progress-ring" viewBox="0 0 120 120" role="img" aria-label="80 percent">
+              <circle class="progress-bg" cx="60" cy="60" r="54"></circle>
+              <circle class="progress-fg" cx="60" cy="60" r="54"></circle>
+            </svg>
+            <div class="skill-perc">0%</div>
+          </div>
+          <div class="skill-info"><h4>Illustrator</h4><p>Vector systems & logo grids</p></div>
+          <div class="tip">80% — 1 years</div>
+        </div>
+
+        <div class="skill-card" data-category="design" data-percent="90">
+          <div class="ring-wrap">
+            <svg class="progress-ring" viewBox="0 0 120 120"><circle class="progress-bg" cx="60" cy="60" r="54"></circle><circle class="progress-fg" cx="60" cy="60" r="54"></circle></svg>
+            <div class="skill-perc">0%</div>
+          </div>
+          <div class="skill-info"><h4>Photoshop</h4><p>Composite & retouch</p></div>
+          <div class="tip">90% — 1 years</div>
+        </div>
+
+        <div class="skill-card" data-category="dev" data-percent="95">
+          <div class="ring-wrap">
+            <svg class="progress-ring" viewBox="0 0 120 120"><circle class="progress-bg" cx="60" cy="60" r="54"></circle><circle class="progress-fg" cx="60" cy="60" r="54"></circle></svg>
+            <div class="skill-perc">0%</div>
+          </div>
+          <div class="skill-info"><h4>Front-End</h4><p>Responsive, accessible UIs</p></div>
+          <div class="tip">95% — 5 years</div>
+        </div>
+
+        <div class="skill-card" data-category="dev" data-percent="92">
+          <div class="ring-wrap">
+            <svg class="progress-ring" viewBox="0 0 120 120"><circle class="progress-bg" cx="60" cy="60" r="54"></circle><circle class="progress-fg" cx="60" cy="60" r="54"></circle></svg>
+            <div class="skill-perc">0%</div>
+          </div>
+          <div class="skill-info"><h4>Back-End</h4><p>BackEnd Developer</p></div>
+          <div class="tip">92% — 4 years</div>
+        </div>
+
+        <div class="skill-card" data-category="tools" data-percent="60">
+          <div class="ring-wrap">
+            <svg class="progress-ring" viewBox="0 0 120 120"><circle class="progress-bg" cx="60" cy="60" r="54"></circle><circle class="progress-fg" cx="60" cy="60" r="54"></circle></svg>
+            <div class="skill-perc">0%</div>
+          </div>
+          <div class="skill-info"><h4>Figma</h4><p>Prototyping & design systems</p></div>
+          <div class="tip">60% — 1 years</div>
+        </div>
+
+        <div class="skill-card" data-category="tools" data-percent="66">
+          <div class="ring-wrap">
+            <svg class="progress-ring" viewBox="0 0 120 120"><circle class="progress-bg" cx="60" cy="60" r="54"></circle><circle class="progress-fg" cx="60" cy="60" r="54"></circle></svg>
+            <div class="skill-perc">0%</div>
+          </div>
+          <div class="skill-info"><h4>After Effects</h4><p>Micro-motions & loops</p></div>
+          <div class="tip">66% — 1 years</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <!-- <section id="testimonials" class="testimonials" aria-label="Testimonials">
+      <h3 class="reveal" data-reveal>What Clients Say</h3>
+      <div class="testimonials-wrap reveal" data-reveal style="margin-top:16px">
+        <div class="testimonial"><p class="quote">"Worked with [Your Name] on our rebrand — the result exceeded expectations."</p><div class="meta">— Alex, Founder</div></div>
+        
+      </div>
+    </section> -->
+
+    <!-- CONTACT -->
+    <section id="contact" class="section" aria-label="Contact" style="padding-bottom:80px">
+      <h3 class="reveal" data-reveal>Contact</h3>
+      <div class="contact-grid reveal" data-reveal style="margin-top:18px">
+        <form id="contactForm" class="reveal" data-reveal style="display:grid;gap:12px" aria-label="Contact form">
+          <input id="name" name="name" placeholder="Name" required aria-label="Name" />
+          <input id="email" name="email" type="email" placeholder="Email" required aria-label="Email" />
+          <textarea id="message" name="message" rows="5" placeholder="Message" aria-label="Message"></textarea>
+          <div style="display:flex;gap:12px;justify-content:flex-start;flex-wrap:wrap;align-items:center">
+            <button class="btn btn-primary" type="submit">Send</button>
+            <button class="btn" type="button" id="downloadCV">Download CV</button>
+            <!-- <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+              <a href="#" class="social" aria-label="Behance" title="Behance"><i class="fa-brands fa-behance fa-lg" style="color:var(--muted)"></i></a>
+              <a href="#" class="social" aria-label="Dribbble" title="Dribbble"><i class="fa-brands fa-dribbble fa-lg" style="color:var(--muted)"></i></a>
+              <a href="#" class="social" aria-label="Instagram" title="Instagram"><i class="fa-brands fa-instagram fa-lg" style="color:var(--muted)"></i></a>
+              <a href="#" class="social" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin fa-lg" style="color:var(--muted)"></i></a>
+            </div> -->
+          </div>
+        </form>
+
+        <div class="reveal" data-reveal>
+          <p class="muted">Prefer email? <a href="mailto:engyusufayman@gmail.com">engyusufayman@gmail.com</a></p>
+      
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="center" style="margin-bottom:12px">
+        <div class="socials" role="navigation" aria-label="Social links" style="justify-content:center">
+          <a href="https://www.behance.net/yusufayman2" aria-label="Behance"><i class="fa-brands fa-behance"></i></a>
+          <a href="https://www.facebook.com/eng.yusuf.ayman" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+          <a href="https://www.instagram.com/eng.yusuf.ayman" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+        </div>
+      </div>
+      <div class="center muted">© <span id="year"></span> Yusuf Ayman — All rights reserved.</div>
+    </div>
+  </footer>
+
+  <!-- =========================
+       Interactions (JS)
+       ========================= -->
+  <script src="main.js"></script>
+
+  <!-- IMAGE MODAL (hidden by default) -->
+  <div id="imgModal" class="img-modal" aria-modal="true" role="dialog" tabindex="-1" style="display:none">
+    <div class="img-modal-backdrop"></div>
+    <div class="img-modal-content" role="document">
+      <button class="img-modal-close" aria-label="Close">&times;</button>
+      <img id="imgModalImg" src="" alt="Full project image" />
+    </div>
+  </div>
+</body>
+</html>
