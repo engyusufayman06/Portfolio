@@ -141,20 +141,49 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Smooth anchors (extra)
   (function(){ document.querySelectorAll('a[href^="#"]').forEach(a=>{ a.addEventListener('click', e=>{ const id = a.getAttribute('href'); const el = document.querySelector(id); if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); } }); }); })();
-
-  // Contact form placeholder & CV download
+  
+  // =============================================
+  // === 💡 كود Email.js الجديد والمُصحح 💡 ===
+  // =============================================
   (function(){
-    const form = document.getElementById('contactForm');
-    if(form){ form.addEventListener('submit', e=>{ e.preventDefault(); const name = form.name.value.trim(); const email = form.email.value.trim(); if(!name || !email){ alert('Please provide name and email.'); return; } alert('Thanks! Message sent '); form.reset(); }); }
+    // استخدم نفس المفاتيح التي أدخلتها أنت
+    emailjs.init("Xro-DLh5JDVz3oITp"); 
+    
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault(); // يمنع الريلود
+
+        const submitButton = this.querySelector('button[type="submit"]');
+        submitButton.textContent = 'Sending...';
+        submitButton.disabled = true;
+
+        // سنستخدم "sendForm" لأنها أسهل
+        // هي تقرأ أسماء الحقول (name, email, message) وترسلها
+        // وهي مطابقة للتمبلت عندك ({{name}}, {{email}}, {{message}})
+        emailjs.sendForm("service_pjj3r0p", "template_r6oerjf", this)
+          .then(() => {
+            alert("✅ Message sent!");
+            contactForm.reset();
+            submitButton.textContent = 'Send';
+            submitButton.disabled = false;
+          }, (error) => {
+            console.error('Email.js Error:', error);
+            alert("❌ Failed to send message. Try again later.");
+            submitButton.textContent = 'Send';
+            submitButton.disabled = false;
+          });
+      });
+    }
   })();
+  // (انتهى كود Email.js)
+  // (تم حذف كود الفورم القديم المتعارض)
 
   // Accessibility: show focus outlines on keyboard navigation
   (function(){ function onFirstTab(e){ if(e.key === 'Tab'){ document.body.classList.add('show-focus'); window.removeEventListener('keydown', onFirstTab); } } window.addEventListener('keydown', onFirstTab); })();
 
-  // Footer year0]
+  // Footer year
   document.getElementById('year').textContent = new Date().getFullYear();
-
-  // Quick help: portrait click
 
   // Lazy load images
   document.querySelectorAll('.project-thumb img, .hero-shot img, .portrait img').forEach(img=>{ img.setAttribute('loading', 'lazy'); img.decoding = 'async'; });
@@ -163,7 +192,6 @@ document.addEventListener('DOMContentLoaded', function() {
   (function(){
     const cards = document.querySelectorAll('.skill-card');
     cards.forEach(card => {
-      // If already visible (not hidden by filter), animate immediately
       if (card.offsetParent !== null) {
         card.classList.add('in');
         const percent = Number(card.getAttribute('data-percent') || 0);
@@ -186,7 +214,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const modalImg = document.getElementById('imgModalImg');
     const closeBtn = modal.querySelector('.img-modal-close');
     const backdrop = modal.querySelector('.img-modal-backdrop');
-    // Open modal on click
     document.querySelectorAll('.project-thumb img').forEach(img => {
       img.style.cursor = 'zoom-in';
       img.addEventListener('click', e => {
@@ -196,7 +223,6 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.style.overflow = 'hidden';
       });
     });
-    // Close modal
     function closeModal() {
       modal.style.display = 'none';
       modalImg.src = '';
@@ -208,8 +234,11 @@ document.addEventListener('DOMContentLoaded', function() {
       if(modal.style.display === 'flex' && (e.key === 'Escape' || e.key === 'Esc')) closeModal();
     });
   })();
-  });
-    const canvas = document.getElementById("particles-bg");
+
+  // =============================================
+  // === 💡 كود الـ Particles (نقلته للداخل) 💡 ===
+  // =============================================
+  const canvas = document.getElementById("particles-bg");
   const ctx = canvas.getContext("2d");
 
   let particlesArray;
@@ -280,3 +309,6 @@ document.addEventListener('DOMContentLoaded', function() {
   window.addEventListener("resize", init);
   init();
   animate();
+  // (انتهى كود الـ Particles)
+
+}); // <-- هذا هو القوس الأخير الذي يغلق 'DOMContentLoaded'
