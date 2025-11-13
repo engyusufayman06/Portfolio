@@ -269,22 +269,21 @@
     <section id="contact" class="section" aria-label="Contact" style="padding-bottom:80px">
       <h3 class="reveal" data-reveal>Contact</h3>
       <div class="contact-grid reveal" data-reveal style="margin-top:18px">
-       <form action="https://formsubmit.co/engyusufayman@gmail.com" method="POST" style="display:grid;gap:12px">
-        <!-- Hidden settings -->
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_next" value="https://yusufayman.github.io/thankyou.html">
-
-        <!-- User fields -->
-        <input type="text" name="name" placeholder="Name" required aria-label="Name" />
-        <input type="email" name="email" placeholder="Email" required aria-label="Email" />
-        <textarea name="message" rows="5" placeholder="Message" aria-label="Message" required></textarea>
-
-        <div style="display:flex;gap:12px;justify-content:flex-start;flex-wrap:wrap;align-items:center">
-          <button class="btn btn-primary" type="submit">Send</button>
-          <button class="btn" type="button" id="downloadCV">Download CV</button>
-        </div>
-      </form>
-
+        <form id="contactForm" class="reveal" data-reveal style="display:grid;gap:12px" aria-label="Contact form">
+          <input id="name" name="name" placeholder="Name" required aria-label="Name" />
+          <input id="email" name="email" type="email" placeholder="Email" required aria-label="Email" />
+          <textarea id="message" name="message" rows="5" placeholder="Message" aria-label="Message"></textarea>
+          <div style="display:flex;gap:12px;justify-content:flex-start;flex-wrap:wrap;align-items:center">
+            <button class="btn btn-primary" type="submit">Send</button>
+            <button class="btn" type="button" id="downloadCV">Download CV</button>
+            <!-- <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+              <a href="#" class="social" aria-label="Behance" title="Behance"><i class="fa-brands fa-behance fa-lg" style="color:var(--muted)"></i></a>
+              <a href="#" class="social" aria-label="Dribbble" title="Dribbble"><i class="fa-brands fa-dribbble fa-lg" style="color:var(--muted)"></i></a>
+              <a href="#" class="social" aria-label="Instagram" title="Instagram"><i class="fa-brands fa-instagram fa-lg" style="color:var(--muted)"></i></a>
+              <a href="#" class="social" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin fa-lg" style="color:var(--muted)"></i></a>
+            </div> -->
+          </div>
+        </form>
 
         <div class="reveal" data-reveal>
           <p class="muted">Prefer email? <a href="mailto:engyusufayman@gmail.com">engyusufayman@gmail.com</a></p>
