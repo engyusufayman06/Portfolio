@@ -22,20 +22,21 @@ document.addEventListener('DOMContentLoaded', function() {
   (function(){
     const ham = document.getElementById('hamburger');
     const mobileNav = document.getElementById('mobileNav');
+    function setMenu(open){
+      if(!ham || !mobileNav) return;
+      ham.setAttribute('aria-expanded', String(open));
+      ham.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      ham.classList.toggle('active', open);
+      mobileNav.setAttribute('aria-hidden', String(!open));
+      document.body.classList.toggle('menu-open', open);
+    }
     ham && ham.addEventListener('click', ()=>{
-      const open = ham.getAttribute('aria-expanded') === 'true';
-      ham.setAttribute('aria-expanded', String(!open));
-      if(open){
-        mobileNav.style.display = 'none';
-        mobileNav.setAttribute('aria-hidden', 'true');
-      } else {
-        mobileNav.style.display = 'block';
-        mobileNav.setAttribute('aria-hidden', 'false');
-      }
+      setMenu(ham.getAttribute('aria-expanded') !== 'true');
     });
     mobileNav && mobileNav.addEventListener('click', e=>{
-      if(e.target.tagName === 'A'){ mobileNav.style.display='none'; mobileNav.setAttribute('aria-hidden','true'); ham.setAttribute('aria-expanded','false'); }
+      if(e.target.closest('a')) setMenu(false);
     });
+    window.addEventListener('resize', ()=>{ if(window.innerWidth > 800) setMenu(false); });
   })();
 
   // Typing effect (hero)
@@ -65,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const circle = entry.target.querySelector('.progress-fg');
             const perc = entry.target.querySelector('.skill-perc');
             if(circle && perc){
-              const circ = 339.292; // 2πr (r=54)
+              const circ = 339.292;
               const offset = Math.round(circ - (circ * percent) / 100);
               setTimeout(()=> circle.style.strokeDashoffset = offset, 140);
               let cur = 0; const step = Math.max(1, Math.round(percent / 18));
@@ -110,6 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // 3D tilt for project cards (desktop only)
   (function(){
     function attachTilt(){
+      if(window.matchMedia('(pointer: coarse)').matches) return;
       const cards = $$('.project-card');
       cards.forEach(card=>{
         card.addEventListener('mousemove', e=>{
@@ -133,34 +135,26 @@ document.addEventListener('DOMContentLoaded', function() {
       btn.addEventListener('click', ()=>{
         $$('.filter-btn.active').forEach(a=> a.classList.remove('active'));
         btn.classList.add('active');
+        buttons.forEach(b=>b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'));
         const filter = btn.getAttribute('data-filter');
         cards.forEach(c=>{ if(filter === 'all' || c.getAttribute('data-category') === filter) c.style.display = ''; else c.style.display = 'none'; });
       });
     });
   })();
 
-  // Smooth anchors (extra)
-  (function(){ document.querySelectorAll('a[href^="#"]').forEach(a=>{ a.addEventListener('click', e=>{ const id = a.getAttribute('href'); const el = document.querySelector(id); if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); } }); }); })();
-  
-  // =============================================
-  // === 💡 كود Email.js الجديد والمُصحح 💡 ===
-  // =============================================
+  // Smooth anchors
+  (function(){ document.querySelectorAll('a[href^="#"]').forEach(a=>{ a.addEventListener('click', e=>{ const id = a.getAttribute('href'); if(id === '#') return; const el = document.querySelector(id); if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); } }); }); })();
+
+  // EmailJS contact form
   (function(){
-    // استخدم نفس المفاتيح التي أدخلتها أنت
-    emailjs.init("Xro-DLh5JDVz3oITp"); 
-    
+    emailjs.init("Xro-DLh5JDVz3oITp");
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
       contactForm.addEventListener('submit', function(e) {
-        e.preventDefault(); // يمنع الريلود
-
+        e.preventDefault();
         const submitButton = this.querySelector('button[type="submit"]');
         submitButton.textContent = 'Sending...';
         submitButton.disabled = true;
-
-        // سنستخدم "sendForm" لأنها أسهل
-        // هي تقرأ أسماء الحقول (name, email, message) وترسلها
-        // وهي مطابقة للتمبلت عندك ({{name}}, {{email}}, {{message}})
         emailjs.sendForm("service_pjj3r0p", "template_r6oerjf", this)
           .then(() => {
             alert("✅ Message sent!");
@@ -176,19 +170,20 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
   })();
-  // (انتهى كود Email.js)
-  // (تم حذف كود الفورم القديم المتعارض)
 
   // Accessibility: show focus outlines on keyboard navigation
   (function(){ function onFirstTab(e){ if(e.key === 'Tab'){ document.body.classList.add('show-focus'); window.removeEventListener('keydown', onFirstTab); } } window.addEventListener('keydown', onFirstTab); })();
 
   // Footer year
-  document.getElementById('year').textContent = new Date().getFullYear();
+  const year = document.getElementById('year');
+  if(year) year.textContent = new Date().getFullYear();
 
-  // Lazy load images
-  document.querySelectorAll('.project-thumb img, .hero-shot img, .portrait img').forEach(img=>{ img.setAttribute('loading', 'lazy'); img.decoding = 'async'; });
+  // Image loading: keep the hero eager for a faster first paint; defer project images.
+  document.querySelectorAll('.project-thumb img, .portrait img').forEach(img=>{ img.setAttribute('loading', 'lazy'); img.decoding = 'async'; });
+  const heroImage = document.querySelector('.hero-shot img');
+  if(heroImage){ heroImage.setAttribute('loading', 'eager'); heroImage.setAttribute('fetchpriority', 'high'); heroImage.decoding = 'async'; }
 
-  // Ensure skill circles always animate and show percentage
+  // Ensure skill circles animate and show percentage
   (function(){
     const cards = document.querySelectorAll('.skill-card');
     cards.forEach(card => {
@@ -198,7 +193,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const circle = card.querySelector('.progress-fg');
         const perc = card.querySelector('.skill-perc');
         if(circle && perc){
-          const circ = 339.292; // 2πr (r=54)
+          const circ = 339.292;
           const offset = Math.round(circ - (circ * percent) / 100);
           setTimeout(()=> circle.style.strokeDashoffset = offset, 140);
           let cur = 0; const step = Math.max(1, Math.round(percent / 18));
@@ -208,9 +203,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   })();
 
-  // Project image modal (click to view full image)
+  // Project image modal
   (function(){
     const modal = document.getElementById('imgModal');
+    if(!modal) return;
     const modalImg = document.getElementById('imgModalImg');
     const closeBtn = modal.querySelector('.img-modal-close');
     const backdrop = modal.querySelector('.img-modal-backdrop');
@@ -218,6 +214,7 @@ document.addEventListener('DOMContentLoaded', function() {
       img.style.cursor = 'zoom-in';
       img.addEventListener('click', e => {
         modalImg.src = img.src;
+        modalImg.alt = img.alt || 'Full project image';
         modal.style.display = 'flex';
         setTimeout(()=>modal.focus(), 10);
         document.body.style.overflow = 'hidden';
@@ -228,87 +225,58 @@ document.addEventListener('DOMContentLoaded', function() {
       modalImg.src = '';
       document.body.style.overflow = '';
     }
-    closeBtn.addEventListener('click', closeModal);
-    backdrop.addEventListener('click', closeModal);
+    closeBtn && closeBtn.addEventListener('click', closeModal);
+    backdrop && backdrop.addEventListener('click', closeModal);
     window.addEventListener('keydown', e => {
       if(modal.style.display === 'flex' && (e.key === 'Escape' || e.key === 'Esc')) closeModal();
     });
   })();
 
-  // =============================================
-  // === 💡 كود الـ Particles (نقلته للداخل) 💡 ===
-  // =============================================
+  // Particles: skip the canvas work on touch/mobile devices for better performance.
   const canvas = document.getElementById("particles-bg");
-  const ctx = canvas.getContext("2d");
-
-  let particlesArray;
-  let width, height;
-
-  function init() {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
-
-    particlesArray = [];
-    const numberOfParticles = Math.floor((width * height) / 15000);
-
-    for (let i = 0; i < numberOfParticles; i++) {
-      particlesArray.push(new Particle());
+  if(canvas && !window.matchMedia('(pointer: coarse)').matches && window.innerWidth > 760){
+    const ctx = canvas.getContext("2d");
+    let particlesArray;
+    let width, height;
+    function init() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      particlesArray = [];
+      const numberOfParticles = Math.min(90, Math.floor((width * height) / 22000));
+      for (let i = 0; i < numberOfParticles; i++) particlesArray.push(new Particle());
     }
-  }
-
-  class Particle {
-    constructor() {
-      this.x = Math.random() * width;
-      this.y = Math.random() * height;
-      this.size = Math.random() * 2 + 1;
-      this.speedX = Math.random() * 1 - 0.5;
-      this.speedY = Math.random() * 1 - 0.5;
+    class Particle {
+      constructor() { this.x=Math.random()*width; this.y=Math.random()*height; this.size=Math.random()*1.5+.7; this.speedX=Math.random()*0.7-.35; this.speedY=Math.random()*0.7-.35; }
+      update(){ this.x+=this.speedX; this.y+=this.speedY; if(this.x<0||this.x>width)this.speedX*=-1; if(this.y<0||this.y>height)this.speedY*=-1; }
+      draw(){ ctx.fillStyle="rgba(255,255,255,0.65)"; ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fill(); }
     }
-    update() {
-      this.x += this.speedX;
-      this.y += this.speedY;
-      if (this.x < 0 || this.x > width) this.speedX *= -1;
-      if (this.y < 0 || this.y > height) this.speedY *= -1;
-    }
-    draw() {
-      ctx.fillStyle = "rgba(255,255,255,0.8)";
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  }
-
-  function connect() {
-    for (let a = 0; a < particlesArray.length; a++) {
-      for (let b = a; b < particlesArray.length; b++) {
-        let dx = particlesArray[a].x - particlesArray[b].x;
-        let dy = particlesArray[a].y - particlesArray[b].y;
-        let distance = dx * dx + dy * dy;
-        if (distance < 120 * 120) {
-          ctx.strokeStyle = "rgba(255,255,255,0.1)";
-          ctx.lineWidth = 1;
-          ctx.beginPath();
-          ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
-          ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
-          ctx.stroke();
-        }
+    function connect(){
+      for(let a=0;a<particlesArray.length;a++) for(let b=a+1;b<particlesArray.length;b++){
+        const dx=particlesArray[a].x-particlesArray[b].x, dy=particlesArray[a].y-particlesArray[b].y, distance=dx*dx+dy*dy;
+        if(distance<120*120){ ctx.strokeStyle="rgba(255,255,255,0.08)"; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(particlesArray[a].x,particlesArray[a].y); ctx.lineTo(particlesArray[b].x,particlesArray[b].y); ctx.stroke(); }
       }
     }
+    function animate(){ ctx.clearRect(0,0,width,height); particlesArray.forEach(p=>{p.update();p.draw();}); connect(); requestAnimationFrame(animate); }
+    window.addEventListener("resize", init);
+    init(); animate();
   }
 
-  function animate() {
-    ctx.clearRect(0, 0, width, height);
-    for (let i = 0; i < particlesArray.length; i++) {
-      particlesArray[i].update();
-      particlesArray[i].draw();
+  // Keep the existing public social link functional if it was left as a placeholder.
+  document.querySelectorAll('a[href="#"]').forEach(link => {
+    if(link.getAttribute('aria-label') === 'LinkedIn'){
+      link.href = 'https://www.linkedin.com/in/yusuf-ayman-a390b939b/';
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
     }
-    connect();
-    requestAnimationFrame(animate);
+  });
+
+  // The old CV button had no file/handler. Make it an explicit CV request instead of a dead control.
+  const cvButton = document.getElementById('downloadCV');
+  if(cvButton){
+    cvButton.textContent = 'Request CV';
+    cvButton.addEventListener('click', ()=>{
+      window.location.href = 'mailto:engyusufayman@gmail.com?subject=CV%20Request';
+    });
   }
 
-  window.addEventListener("resize", init);
-  init();
-  animate();
-  // (انتهى كود الـ Particles)
-
-}); // <-- هذا هو القوس الأخير الذي يغلق 'DOMContentLoaded'
+});
